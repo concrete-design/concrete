@@ -8,18 +8,27 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev",
+    "start": "turbo run start",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "test": "turbo run test"
   },
   "devDependencies": {
-    "eslint-config-custom": "*",
-    "prettier": "latest",
+    "husky": "^4.3.8",
+    "lint-staged": "^13.1.1",
     "turbo": "latest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run test"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix"
+    ]
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {},
   "packageManager": "npm@8.1.4"
 }

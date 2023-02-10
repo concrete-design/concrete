@@ -28,21 +28,11 @@
     "url": "git+https://github.com/habx/ui-table.git"
   },
   "author": "HABX Front End team",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/habx/ui-table/issues"
+    "url": "https://github.com/concrete-design/concrete/issues"
   },
-  "homepage": "https://github.com/habx/ui-table#readme",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && npm run test"
-    }
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix"
-    ]
-  },
+  "homepage": "https://github.com/concrete-design/concrete#readme",
   "peerDependencies": {
     "@concrete-design/core": "^6.18.0",
     "lodash": ">=4.17.21",

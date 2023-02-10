@@ -27,24 +27,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/habx/ui-core.git"
+    "url": "git+https://github.com/concrete-design/concrete.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "HABX Front End team",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/habx/ui-core/issues"
+    "url": "https://github.com/concrete-design/concrete/issues"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && npm run test"
-    }
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix"
-    ]
-  },
-  "homepage": "https://github.com/habx/ui-core#readme",
+  "homepage": "https://github.com/concrete-design/concrete#readme",
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -84,12 +74,10 @@
     "bili": "^5.0.5",
     "eslint": "^8.27.0",
     "eslint-plugin-mdx": "^2.0.5",
-    "husky": "^4.3.8",
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1",
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "jest-junit": "^14.0.1",
-    "lint-staged": "^13.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^3.0.2",
