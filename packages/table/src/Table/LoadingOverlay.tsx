@@ -1,7 +1,6 @@
+import { Loader, theme } from '@concrete-design/core'
 import * as React from 'react'
 import styled from 'styled-components'
-
-import { Loader, theme } from '@concrete-design/core'
 
 export const LoadingContainer = styled.div`
   position: absolute;

@@ -1,6 +1,5 @@
-import styled from 'styled-components'
-
 import { IconButton, Text, theme } from '@concrete-design/core'
+import styled from 'styled-components'
 
 export const PaginationContainer = styled.div`
   display: flex;

@@ -1,6 +1,5 @@
-import styled from 'styled-components'
-
 import { theme } from '@concrete-design/core'
+import styled from 'styled-components'
 
 import { zIndex } from '../../_internal/zIndex'
 

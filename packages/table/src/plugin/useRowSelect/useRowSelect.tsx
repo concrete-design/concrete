@@ -1,7 +1,6 @@
+import { Checkbox, Tooltip } from '@concrete-design/core'
 import * as React from 'react'
 import * as ReactTable from 'react-table'
-
-import { Checkbox, Tooltip } from '@concrete-design/core'
 
 import {
   CellProps,

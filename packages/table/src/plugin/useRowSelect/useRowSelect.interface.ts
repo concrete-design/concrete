@@ -1,6 +1,5 @@
-import * as ReactTable from 'react-table'
-
 import { CheckboxProps } from '@concrete-design/core'
+import * as ReactTable from 'react-table'
 
 export interface UseRowSelectCellProps<D extends {}> {
   getCheckboxProps?: (row: ReactTable.Row<D>) => Partial<CheckboxProps>

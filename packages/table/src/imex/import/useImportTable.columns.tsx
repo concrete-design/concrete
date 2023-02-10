@@ -1,8 +1,7 @@
+import { Tooltip } from '@concrete-design/core'
 import { get, isFunction, isNil } from 'lodash'
 import * as React from 'react'
 import * as ReactTable from 'react-table'
-
-import { Tooltip } from '@concrete-design/core'
 
 import { CellProps, Column, FooterProps } from '../../types/Table'
 import { IMEXColumn, ImportedRow } from '../imex.interface'

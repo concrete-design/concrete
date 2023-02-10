@@ -12,7 +12,9 @@
     "serve": "BROWSERSLIST_DANGEROUS_EXTEND=1 docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "lint": "eslint \"docs/**\" \"src/**\""
+    "lint": "eslint \"docs/**\" \"src/**\"",
+    "lint:fix": "eslint \"docs/**\" \"src/**\" --fix"
+    
   },
   "repository": {
     "type": "git",

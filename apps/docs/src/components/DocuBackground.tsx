@@ -1,8 +1,7 @@
+import { Background, palette } from '@concrete-design/core'
 import { useColorMode } from '@docusaurus/theme-common'
 import * as React from 'react'
 import styled from 'styled-components'
-
-import { Background, palette } from '@concrete-design/core'
 
 const TransparentBackground = styled(Background)`
   background: transparent !important;

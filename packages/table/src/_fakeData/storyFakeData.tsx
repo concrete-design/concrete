@@ -1,8 +1,7 @@
+import { Icon } from '@concrete-design/core'
 import faker from 'faker'
 import { range } from 'lodash'
 import * as React from 'react'
-
-import { Icon } from '@concrete-design/core'
 
 import { ImageCell } from '../cell/ImageCell'
 import { BooleanCell, BooleanFilter, IMEXColumn, RangeFilter } from '../index'
@@ -64,7 +63,7 @@ export const RICH_COLUMNS = [
     Filter: BooleanFilter,
     filter: 'equals',
   },
-] as Column<typeof FAKE_DATA[0]>[]
+] as Column<(typeof FAKE_DATA)[0]>[]
 
 export const IMEX_COLUMNS: IMEXColumn[] = [
   {

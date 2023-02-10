@@ -1,11 +1,10 @@
+import { Background, breakpoints, Button, Text } from '@concrete-design/core'
 import Link from '@docusaurus/Link'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 import * as React from 'react'
 import styled from 'styled-components'
-
-import { Background, breakpoints, Button, Text } from '@concrete-design/core'
 
 import { DocuBackground } from '../components/DocuBackground'
 

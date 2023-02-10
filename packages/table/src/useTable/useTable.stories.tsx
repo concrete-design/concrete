@@ -1,8 +1,7 @@
+import { Text } from '@concrete-design/core'
 import * as React from 'react'
 import { useFilters, usePagination, useSortBy, useRowSelect } from 'react-table'
 import styled from 'styled-components'
-
-import { Text } from '@concrete-design/core'
 
 import {
   BASIC_COLUMNS,

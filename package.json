@@ -10,25 +10,18 @@
     "build": "turbo run build",
     "start": "turbo run start",
     "lint": "turbo run lint",
-    "test": "turbo run test"
+    "lint:fix": "turbo run lint:fix",
+    "test": "turbo run test",
+    "publish-packages": "turbo run build lint test && changeset version && changeset publish"
   },
   "devDependencies": {
-    "husky": "^4.3.8",
-    "lint-staged": "^13.1.1",
     "turbo": "latest"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && npm run test"
-    }
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix"
-    ]
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "packageManager": "npm@8.1.4"
+  "packageManager": "npm@8.1.4",
+  "dependencies": {
+    "@changesets/cli": "^2.26.0"
+  }
 }

@@ -1,6 +1,5 @@
-import * as React from 'react'
-
 import { Icon } from '@concrete-design/core'
+import * as React from 'react'
 
 import { IconCellProps } from './IconCell.interface'
 import {

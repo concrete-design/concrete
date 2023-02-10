@@ -8,7 +8,7 @@ on:
  
 jobs:
   build:
-      name: Build and Test
+      name: Check PR
       timeout-minutes: 15
       runs-on: ubuntu-latest
       env:
@@ -29,10 +29,13 @@ jobs:
             cache: 'npm'
  
         - name: Install dependencies
-          run: npm install
+          run: npm ci
  
         - name: Build
           run: npm run build
  
         - name: Test
           run: npm run test
+
+        - name: Lint
+          run: npm run lint

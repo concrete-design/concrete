@@ -1,7 +1,3 @@
-import { isFunction } from 'lodash'
-import * as React from 'react'
-import styled from 'styled-components'
-
 import {
   TogglePanel,
   menuDefaultPositionSetter,
@@ -11,6 +7,9 @@ import {
   Slider,
   SliderProps,
 } from '@concrete-design/core'
+import { isFunction } from 'lodash'
+import * as React from 'react'
+import styled from 'styled-components'
 
 import { ColumnInstance } from '../../types/Table'
 
