@@ -13,19 +13,7 @@
     "test": "turbo run test"
   },
   "devDependencies": {
-    "husky": "^4.3.8",
-    "lint-staged": "^13.1.1",
     "turbo": "latest"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix"
-    ]
   },
   "engines": {
     "node": ">=14.0.0"
