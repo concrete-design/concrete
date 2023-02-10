@@ -28,6 +28,6 @@ jobs:
       - name: Install
         run: npm ci
       - name: Publish
-        run: npm run publish-packages
+        run: npm run publish-packages --otp={NPM_AUTH_TOKEN} --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
