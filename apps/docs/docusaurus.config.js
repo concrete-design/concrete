@@ -5,7 +5,7 @@ module.exports = {
   title: 'Concrete',
   tagline: 'Concrete design-system documentation',
   url: 'https://habx.github.io/',
-  baseUrl: '/concrete-docs.vercel.app/',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
