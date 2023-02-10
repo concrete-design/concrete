@@ -5,6 +5,10 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
+    "lint:fix": {
+      "cache": false,
+      "outputs": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.mdx"]
+    },
     "lint": {
       "outputs": []
     },

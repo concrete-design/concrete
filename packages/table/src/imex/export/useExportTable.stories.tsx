@@ -1,7 +1,6 @@
+import { Button, ActionBar } from '@concrete-design/core'
 import * as React from 'react'
 import styled from 'styled-components'
-
-import { Button, ActionBar } from '@concrete-design/core'
 
 import { FAKE_DATA, IMEX_COLUMNS } from '../../_fakeData/storyFakeData'
 import { Table } from '../../Table'

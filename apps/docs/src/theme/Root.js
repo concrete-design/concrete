@@ -1,8 +1,12 @@
 // eslint-disable-next-line no-use-before-define
+import {
+  Provider,
+  ThemeProvider,
+  theme,
+  EuclidFont,
+} from '@concrete-design/core'
 import * as React from 'react'
 import { createGlobalStyle } from 'styled-components'
-
-import { Provider, ThemeProvider, theme, EuclidFont } from '@concrete-design/core'
 
 const GlobalStyle = createGlobalStyle`
   :root {

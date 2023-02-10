@@ -1,7 +1,6 @@
+import { SelectProps, Select } from '@concrete-design/core'
 import { get } from 'lodash'
 import * as React from 'react'
-
-import { SelectProps, Select } from '@concrete-design/core'
 
 import { Column } from '../../index'
 

@@ -1,6 +1,5 @@
-import styled, { css } from 'styled-components'
-
 import { Text, theme } from '@concrete-design/core'
+import styled, { css } from 'styled-components'
 
 import { zIndex } from '../_internal/zIndex'
 import { CheckboxContainer } from '../plugin/useRowSelect/useRowSelect.style'

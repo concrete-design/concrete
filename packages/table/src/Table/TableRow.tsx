@@ -1,6 +1,5 @@
-import * as React from 'react'
-
 import { Icon, Text } from '@concrete-design/core'
+import * as React from 'react'
 
 import { ColumnInstance, Row, TableInstance } from '../types/Table'
 

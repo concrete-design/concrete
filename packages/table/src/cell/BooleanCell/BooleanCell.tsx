@@ -1,6 +1,5 @@
-import * as React from 'react'
-
 import { stringifyColor, useThemeVariant } from '@concrete-design/core'
+import * as React from 'react'
 
 import { IconCell, IconCellProps } from '../IconCell'
 

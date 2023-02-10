@@ -1,7 +1,6 @@
+import { theme } from '@concrete-design/core'
 import * as React from 'react'
 import styled from 'styled-components'
-
-import { theme } from '@concrete-design/core'
 
 import { TableInstance } from '../types/Table'
 

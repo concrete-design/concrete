@@ -1,7 +1,6 @@
+import { palette } from '@concrete-design/core'
 import * as React from 'react'
 import styled from 'styled-components'
-
-import { palette } from '@concrete-design/core'
 
 import { FAKE_DATA, BASIC_COLUMNS } from '../../_fakeData/storyFakeData'
 import { Table } from '../../Table'

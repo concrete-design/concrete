@@ -1,6 +1,10 @@
+import {
+  Icon,
+  Text,
+  theme,
+  ActionBar as BasActionBar,
+} from '@concrete-design/core'
 import styled from 'styled-components'
-
-import { Icon, Text, theme, ActionBar as BasActionBar } from '@concrete-design/core'
 
 import { zIndex } from '../../_internal/zIndex'
 

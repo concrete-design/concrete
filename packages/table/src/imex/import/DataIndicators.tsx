@@ -1,6 +1,5 @@
-import * as React from 'react'
-
 import { Icon, Tooltip } from '@concrete-design/core'
+import * as React from 'react'
 
 import { ImportedRow } from '../imex.interface'
 

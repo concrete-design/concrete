@@ -1,6 +1,5 @@
-import * as React from 'react'
-
 import { Text, Card } from '@concrete-design/core'
+import * as React from 'react'
 
 import { UseImportTableParams } from '../imex.interface'
 

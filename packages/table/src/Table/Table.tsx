@@ -1,9 +1,8 @@
+import { Icon, Tooltip, SearchBar } from '@concrete-design/core'
 import { isString } from 'lodash'
 import * as React from 'react'
 import { FixedSizeList, ListChildComponentProps } from 'react-window'
 import InfiniteLoader from 'react-window-infinite-loader'
-
-import { Icon, Tooltip, SearchBar } from '@concrete-design/core'
 
 import { useMergedRef } from '../_internal/useMergedRef'
 import { ColumnInstance } from '../types/Table'

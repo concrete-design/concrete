@@ -1,6 +1,5 @@
-import * as React from 'react'
-
 import { Select, RoundIconButton, Tooltip } from '@concrete-design/core'
+import * as React from 'react'
 
 import { TableInstance } from '../../types/Table'
 

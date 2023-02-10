@@ -1,3 +1,4 @@
+import { CheckboxProps } from '@concrete-design/core'
 import * as React from 'react'
 import * as ReactTable from 'react-table'
 import {
@@ -5,8 +6,6 @@ import {
   ColumnWithLooseAccessor,
   ColumnWithStrictAccessor,
 } from 'react-table'
-
-import { CheckboxProps } from '@concrete-design/core'
 
 import { IMEXColumn } from '../imex/imex.interface'
 import {

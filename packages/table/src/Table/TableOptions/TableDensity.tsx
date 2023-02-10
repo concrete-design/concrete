@@ -1,6 +1,5 @@
-import * as React from 'react'
-
 import { Tooltip } from '@concrete-design/core'
+import * as React from 'react'
 
 import { TableInstance } from '../../types/Table'
 

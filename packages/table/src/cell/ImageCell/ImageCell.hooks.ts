@@ -3,8 +3,9 @@ import * as React from 'react'
 import { IMAGE_ZOOM_SIZE } from './ImageCell.style'
 
 export const useZoomStyle = (imageRef: React.RefObject<HTMLImageElement>) => {
-  const [zoomStyle, setZoomStyle] =
-    React.useState<React.CSSProperties | undefined>(undefined)
+  const [zoomStyle, setZoomStyle] = React.useState<
+    React.CSSProperties | undefined
+  >(undefined)
 
   React.useLayoutEffect(() => {
     if (imageRef.current) {

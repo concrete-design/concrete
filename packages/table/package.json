@@ -14,6 +14,7 @@
     "build:cjs": "bili",
     "build:watch": "npm run clean && tsc --watch",
     "lint": "eslint \"src/**\"",
+    "lint:fix": "eslint \"src/**\" --fix",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o .storybook-static",
     "storybook:deploy": "storybook-to-ghpages -s storybook:build --ci -t=GITHUB_TOKEN",
@@ -25,7 +26,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/habx/ui-table.git"
+    "url": "git+https://github.com/concrete-design/concrete.git"
   },
   "author": "HABX Front End team",
   "license": "MIT",

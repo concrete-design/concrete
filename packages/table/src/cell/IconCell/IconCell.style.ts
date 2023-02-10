@@ -1,6 +1,5 @@
-import styled, { css } from 'styled-components'
-
 import { Text, theme } from '@concrete-design/core'
+import styled, { css } from 'styled-components'
 
 export const IconCellContainer = styled.div`
   display: flex;
