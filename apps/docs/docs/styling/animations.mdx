@@ -1,0 +1,146 @@
+---
+title: Animations
+---
+
+import styled from "styled-components";
+
+import {
+  animations,
+  Background,
+  Button,
+  Card,
+  palette,
+  RadioInput,
+} from "@concrete-design/core";
+
+## Built in animations
+
+You can use some of our built-in animations listed here
+
+### Entering
+
+- `emerge`
+- `emergeSlantFromTop`
+- `emergeSlantFromBottom`
+
+### Leaving
+
+- `dive`
+- `diveSlant`
+
+#### Example
+
+```jsx
+import { animations } from "@concrete-design/core";
+
+const MyComponent = styled.div`
+  animation: ${animations("emergeSlantFromTop")};
+`;
+```
+
+export const AnimationContainer = styled(Background)`
+  padding: 32px 64px;
+`;
+
+export const StyledAnimationExample = styled(Card)`
+  height: 200px;
+  width: 200px;
+  margin: auto;
+  background: white !important;
+  &[data-animation="emerge"] {
+    animation: ${animations("emerge")};
+  }
+  &[data-animation="emergeSlantFromTop"] {
+    animation: ${animations("emergeSlantFromTop", { duration: "l" })};
+  }
+  &[data-animation="emergeSlantFromBottom"] {
+    animation: ${animations("emergeSlantFromBottom", { duration: "l" })};
+  }
+  &[data-animation="dive"] {
+    animation: ${animations("dive", { duration: "l" })};
+  }
+  &[data-animation="diveSlant"] {
+    animation: ${animations("diveSlant", { duration: "l" })};
+  }
+`;
+
+export const AnimationActions = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  > * {
+    margin-top: 12px;
+    margin-left: 12px;
+  }
+`;
+
+export const AnimationExample = () => {
+  const animationsKeys = [
+    "emerge",
+    "emergeSlantFromTop",
+    "emergeSlantFromBottom",
+    "dive",
+    "diveSlant",
+  ];
+  const [animation, setAnimation] = React.useState(animationsKeys[0]);
+  const [animationKey, setAnimationKey] = React.useState(0);
+  return (
+    <div>
+      <StyledAnimationExample key={animationKey} data-animation={animation} />
+      <AnimationActions>
+        {animationsKeys.map((key) => (
+          <RadioInput
+            key={key}
+            label={key}
+            checked={key === animation}
+            onClick={() => setAnimation(key)}
+          />
+        ))}
+      </AnimationActions>
+      <Button
+        fullWidth
+        onClick={() => {
+          setAnimationKey((v) => v + 1);
+        }}
+      >
+        Voir l'animation
+      </Button>
+    </div>
+  );
+};
+
+<AnimationContainer
+  backgroundColor={palette.neutralWhiteWithIntensityFading[800]}
+>
+  <AnimationExample />
+</AnimationContainer>
+
+## Transition
+
+**Concrete** comes with small utility to help having consistent animation duration and type.
+
+```jsx
+import { transition } from "@concrete-design/core";
+
+const MyComponent = styled.div`
+  transition: ${transition($cssKey)};
+`;
+```
+
+## Durations
+
+You can customize tue duration with the following keys:
+
+- `xs` _30ms_
+- `s` _75ms_
+- `m` _150ms_
+- `l` _250ms_
+
+```jsx
+import { transition, animations } from "@concrete-design/core";
+
+const MyComponent = styled.div`
+  transition: ${transition("all", { duration: "xs" })}
+  animation: ${animations("diveSlant", { duration: "l" })}
+`;
+```

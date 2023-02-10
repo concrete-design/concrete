@@ -1,0 +1,46 @@
+---
+title: Getting Started
+slug: /
+---
+
+## Installation
+
+```shell
+npm i @concrete-design/core
+```
+
+## Basic usage
+
+To make **Concrete** work properly, you need to add providers at the top level of your application.
+
+```jsx
+import { Provider as DesignSystemProvider, ThemeProvider } from "@concrete-design/core";
+
+const Providers = ({ children }) => {
+  return (
+    <ThemeProvider theme={theme}>
+      <DesignSystemProvider>{children}</DesignSystemProvider>
+    </ThemeProvider>
+  );
+};
+```
+
+You can now safely use **Concrete**
+
+```typescript jsx
+import { Button } from "@concrete-design/core";
+
+const App = ({ children }) => {
+  return (
+    <Providers>
+      <Button>Click Me !</Button>
+    </Providers>
+  );
+};
+```
+
+import { Button, notify } from "@concrete-design/core";
+
+<Button onClick={() => notify("I can be display only with provider")}>
+  Click Me!
+</Button>

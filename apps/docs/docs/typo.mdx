@@ -1,0 +1,81 @@
+---
+title: Typography
+---
+
+import { DocuBackground } from "@site/src/components/DocuBackground";
+
+import { Text, Title } from "@concrete-design/core";
+
+**Concrete** has two components for text. `Title` and `Text` which has different size type according to the usage.
+
+## Title
+
+`Title` is a styled header component and should be use as such to keep a clean html structure.
+
+### Types
+
+<DocuBackground>
+  <Title type="headerMaxi">headerMaxi</Title>
+  <Title type="headerBig">headerBig</Title>
+  <Title type="header">header</Title>
+  <Title type="headerSmall">headerSmall</Title>
+  <Title type="section">section</Title>
+  <Title type="regular">regular</Title>
+</DocuBackground>
+
+## Text
+
+The `Text` component should be used for any text that is not directly in a component like a `Button` or a `Title`.
+This will allow keeping consistent ui across your application.
+
+### Types
+
+<DocuBackground>
+  <Text type="veryLarge">veryLarge</Text>
+  <Text type="large">large</Text>
+  <Text type="emphasis">emphasis</Text>
+  <Text type="regular">regular</Text>
+  <Text type="small">small</Text>
+  <Text type="caption">caption</Text>
+  <Text type="captionSmall">captionSmall</Text>
+</DocuBackground>
+
+### Variations
+
+Sometimes you will want to highlight or add some variations to your text. `Text` comes with a variation prop with a
+set of predefined variations
+
+<DocuBackground>
+  <Text variation="title">title</Text>
+  <Text variation="button">button</Text>
+  <Text variation="text">text</Text>
+  <Text variation="lowContrast">lowContrast</Text>
+</DocuBackground>
+
+### Markdown
+
+Sometimes your text will come from server and users will want to have rich text UI. With the props `markdown`,
+you will allow the display of rich text in markdown format.
+
+#### Markdown example
+
+```jsx
+<Text markdown>**I'm bold**</Text>
+```
+
+<Text markdown>**I'm bold**</Text>
+
+## Font Family
+
+To use the right font with **Concrete** you will need to add the `EuclidFont` component at the root of your app.
+
+```jsx
+import { EuclidFont, Provider } from "@concrete-design/core";
+export const App = () => {
+  return (
+    <Provider>
+      <EuclidFont />
+    </Provider>
+  );
+};
+```

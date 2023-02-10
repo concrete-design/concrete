@@ -1,0 +1,21 @@
+---
+title: Utils
+---
+
+## stringifyColor
+
+All colors from **Concrete** are [`Color` object](https://github.com/Marak/colors.js).
+To use it as string, you should use the `stringifyColor` function.
+
+### Example
+
+```jsx
+import { palette, stringifyColor } from "@concrete-design/core";
+
+const myStringColor = stringifyColor(palette.yellowGolden[600]);
+```
+
+## isColorDark
+
+`isColorDark` is internally used to defined if a component should use the _dark_ or _light_ theme variant.
+You can use it for you own purpose if needed, but it shouldn't really happen.

@@ -1,27 +1,69 @@
 {
-  "name": "docs",
-  "version": "0.0.0",
+  "name": "@concrete-design/docs",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3001",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "docusaurus": "docusaurus",
+    "start": "BROWSERSLIST_DANGEROUS_EXTEND=1 docusaurus start",
+    "build": "BROWSERSLIST_DANGEROUS_EXTEND=1 docusaurus build",
+    "swizzle": "BROWSERSLIST_DANGEROUS_EXTEND=1 docusaurus swizzle",
+    "deploy": "BROWSERSLIST_DANGEROUS_EXTEND=1 docusaurus deploy",
+    "clear": "BROWSERSLIST_DANGEROUS_EXTEND=1 docusaurus clear",
+    "serve": "BROWSERSLIST_DANGEROUS_EXTEND=1 docusaurus serve",
+    "write-translations": "docusaurus write-translations",
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "lint": "eslint \"docs/**\" \"src/**\""
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "post-commit": "git update-index --again"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mdx}": [
+      "eslint --fix"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/habx/client-projects.git"
+  },
+  "author": "HABX Front End team",
   "dependencies": {
-    "next": "^13.1.1",
+    "@docusaurus/core": "^2.2.0",
+    "@docusaurus/preset-classic": "^2.2.0",
+    "@docusaurus/theme-common": "^2.2.0",
+    "@concrete-design/core": "^6.18.0",
+    "@concrete-design/table": "^8.3.0",
+    "clsx": "^1.2.1",
+    "docusaurus": "^1.14.7",
+    "dotenv": "^16.0.3",
+    "lodash": "^4.17.21",
+    "node-fetch": "^2.6.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "ui": "*"
+    "react-medium-image-zoom": "^5.1.2",
+    "react-table": "^7.8.0",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "eslint": "7.32.0",
-    "eslint-config-custom": "*",
-    "tsconfig": "*",
-    "@types/node": "^17.0.12",
-    "@types/react": "^18.0.22",
-    "@types/react-dom": "^18.0.7",
-    "typescript": "^4.5.3"
-  }
+    "@docusaurus/module-type-aliases": "^2.2.0",
+    "@habx/config-ci-front": "^3.9.0",
+    "@habx/eslint-config-client": "^6.10.0",
+    "@tsconfig/docusaurus": "^1.0.6",
+    "@types/lodash": "^4.14.191",
+    "@types/react": "^18.0.26",
+    "@types/react-helmet": "^6.1.6",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.26",
+    "babel-plugin-styled-components": "^2.0.7",
+    "eslint-plugin-mdx": "^2.0.5",
+    "husky": "^4.3.8",
+    "lint-staged": "^13.1.0",
+    "typescript": "^4.9.4"
+  },
+  "browserslist": [
+    "extends @habx/config-ci-front/browserslist"
+  ]
 }

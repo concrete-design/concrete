@@ -1,0 +1,379 @@
+---
+title: Theme
+---
+
+import { DocuBackground } from "@site/src/components/DocuBackground";
+import styled from "styled-components";
+
+import { theme, Background, palette, Text } from "@concrete-design/core";
+
+## Overview
+
+**Concrete** uses [styled-components](https://styled-components.com/) for its own styling, so it is already well integrated.
+Theme object is accessible directly in any styled component rendered under `Provider`.
+Colors should always be based on _theme_ in order to have a consistent darkmode.
+
+## Colors
+
+You can access a set of colors defined in the _theme_. They are
+
+- `primary`
+- `secondary`
+- `warning`
+- `error`
+- `success`
+- `background`
+
+Most of our components have `error` and `warning` props that use the theme colors described here.
+
+#### Example usage
+
+```jsx
+import styled from "styled-components";
+import { theme } from "@concrete-design/core";
+
+export const SpanWithPrimaryColor = styled.span`
+  color: ${theme.color("primary")};
+`;
+```
+
+export const SpanWithPrimaryColor = styled.span`
+  color: ${theme.color("primary")};
+`;
+
+<SpanWithPrimaryColor>I'm primary color !</SpanWithPrimaryColor>
+
+### Colors variations
+
+Main colors come with 6 variations useful when you want contrast in your components.
+
+- `calmer`
+- `calm`
+- `base` (default)
+- `loud`
+- `louder`
+- `contrastText`
+
+export const DivWithPrimaryCalmColor = styled.div`
+  color: ${({ variation, ...props }) =>
+    theme.color("primary", { variation })(props)};
+  padding: 8px 24px;
+`;
+
+<DocuBackground backgroundColor={palette.neutralWhiteWithIntensityFading[900]}>
+  <DivWithPrimaryCalmColor variation="calmer">
+    I'm calmer primary color !
+  </DivWithPrimaryCalmColor>
+  <DivWithPrimaryCalmColor variation="calm">
+    I'm calm primary color !
+  </DivWithPrimaryCalmColor>
+  <DivWithPrimaryCalmColor variation="base">
+    I'm base primary color !
+  </DivWithPrimaryCalmColor>
+  <DivWithPrimaryCalmColor variation="loud">
+    I'm loud primary color !
+  </DivWithPrimaryCalmColor>
+  <DivWithPrimaryCalmColor variation="louder">
+    I'm louder primary color !
+  </DivWithPrimaryCalmColor>
+  <DivWithPrimaryCalmColor variation="contrastText">
+    I'm contrastText primary color !
+  </DivWithPrimaryCalmColor>
+</DocuBackground>
+
+#### Example
+
+```jsx
+import styled from "styled-components";
+import { theme } from "@concrete-design/core";
+
+export const SpanWithPrimaryColor = styled.span`
+  color: ${theme.color("primary", { variation: "calm" })};
+`;
+```
+
+### Neutral color
+
+Neutral color is also defined in the _theme_ and comes with a scale of strengths from 0 to 1000 with 100 steps.
+It will adapt its color if background is dark or light.
+
+export const NeutralColorExample = () => (
+  <div>
+    {new Array(11).fill(0).map((_, index) => (
+      <DivWithNeutralColor key={index} strength={`${index * 100}`}>
+        I'm a neutral color with strength {index * 100}
+      </DivWithNeutralColor>
+    ))}
+  </div>
+);
+
+<Background backgroundColor={palette.neutralWhiteWithIntensityFading[900]}>
+  <NeutralColorExample />
+</Background>
+
+##### In dark mode
+
+<Background backgroundColor={palette.neutralWhiteWithIntensityFading[100]}>
+  <NeutralColorExample />
+</Background>
+
+#### Example usage
+
+```jsx
+import styled from "styled-components";
+import { theme } from "@concrete-design/core";
+
+export const SpanWithNeutralColor = styled.span`
+  color: ${theme.neutralColor(800)};
+`;
+```
+
+export const DivWithNeutralColor = styled.div`
+  color: ${({ strength, ...props }) => theme.neutralColor(strength)(props)};
+  padding: 8px 24px;
+`;
+
+### Text color
+
+Same case for text color. A color with variation is defined in theme, and you can apply this color in your styled-components.
+
+#### Example
+
+```jsx
+import styled from "styled-components";
+import { theme } from "@concrete-design/core";
+
+export const SpanWithTextColor = styled.span`
+  color: ${theme.textColor()};
+`;
+```
+
+### Variations
+
+#### Opacity
+
+You can change opacity of colors if needed by passing the `opacity` props in config
+
+```js
+theme.color("primary", { opacity: 0.5 });
+theme.neutralColor("800", { opacity: 0.5 });
+```
+
+If you want to play with opacity color intensity without transparency, you can add the `gradient` property with value set
+to `withIntensityFading` (only available with `neutralColor`)
+
+```js
+theme.neutralColor("800", { opacity: 0.5, gradient: "withIntensityFading" });
+```
+
+#### Dynamic
+
+If you want your component to use props `warning` and `error`, add `dynamic: true` in options.
+
+```jsx
+const DynamicComponent = styled.div`
+  border: 1px solid ${theme.color("primary", { dynamic: true })};
+`;
+const App = () => (
+  <div>
+    <DynamicComponent /> // => Border will take the primary color
+    <DynamicComponent warning /> // => Border will take the warning color
+    <DynamicComponent error /> // => Border will take the error color
+  </div>
+);
+```
+
+#### Color variation
+
+The name of the prop we want to use to override manually the variation of the text
+
+```jsx
+const MyComponent = styled.div`
+  color: ${theme.textColor("text", { variationPropName: "variation" })};
+`;
+
+const App = () => (
+  <div>
+    <MyComponent /> // => Text wil take the theme color in the variation defined
+    in the config (or "text" by default)
+    <MyComponent variation="lowContrast" /> // => Text will take the theme color
+    in the "lowContrast" variation
+  </div>
+);
+```
+
+#### Use Root Theme
+
+Allows to bypass nearest background behavior and takes root background (theme background) to calculate color scales
+
+```jsx
+const MyComponent = styled.div`
+  background: ${theme.color('background', { useRootTheme: true})};
+`;
+
+
+
+const App = () => (
+  <Background backgroundColor="red"}>
+    <MyComponent /> // => Background won't be red but will takes theme default background value
+  </Background>
+);
+```
+
+#### Custom props variation
+
+The name of the prop we want to use to override manually the color of the text.
+Note that if you pass a value to the prop defined here, we won't apply any variation to it.
+
+```jsx
+const MyComponent = styled.div`
+  color: ${theme.textColor("text", { valuePropName: "textColor" })};
+`;
+const App = () => (
+  <div>
+    <MyComponent />
+    // => Text wil take the theme color in the chosen variation // (as defined in
+    config or overwritten in variationPropName)
+    <MyComponent textColor="red" /> // => Text will be red
+  </div>
+);
+```
+
+## Shadow
+
+Shadow comes also from the theme with a scale of 6 keys
+
+- `flat`
+- `lower`
+- `low`
+- `regular`
+- `high`
+- `higher`
+
+export const ShadowBoxContainer = styled.div`
+  display: grid;
+  grid-gap: 24px;
+  grid-template-columns: repeat(6, 1fr);
+  padding: 32px;
+`;
+
+export const ShadowBox = styled.div`
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: ${({ shadow, ...props }) => theme.shadow(shadow)(props)};
+  background: white;
+`;
+
+<Background backgroundColor={palette.neutralWhiteWithIntensityFading[900]}>
+  <ShadowBoxContainer>
+    <ShadowBox shadow="lower">
+      <Text>Lower</Text>
+    </ShadowBox>
+    <ShadowBox shadow="low">
+      <Text>Low</Text>
+    </ShadowBox>
+    <ShadowBox shadow="regular">
+      <Text>Regular</Text>
+    </ShadowBox>
+    <ShadowBox shadow="high">
+      <Text>High</Text>
+    </ShadowBox>
+    <ShadowBox shadow="higher">
+      <Text>Higher</Text>
+    </ShadowBox>
+  </ShadowBoxContainer>
+</Background>
+
+#### Example
+
+```jsx
+import styled from "styled-components";
+import { theme } from "@concrete-design/core";
+
+export const DivWithLowerShadow = styled.div`
+  box-shadow: ${theme.shadow("lower")};
+`;
+```
+
+## Font
+
+You can always import font-family from theme by doing
+
+```jsx
+export const FontFamily = styled.span`
+  font-family: ${theme.font()};
+`;
+```
+
+## Hooks
+
+### useThemeVariant
+
+Sometime you will need to access theme properties in the js scope. You can get that from the hook `useThemeVariant`
+
+```jsx
+import { Background, useThemeVariant } from "@concrete-design/core";
+
+const MyComponent = () => {
+  const theme = useThemeVariant();
+
+  return (
+    <Background backgroundColor={theme.neutralColor.withIntensityFading[200]}>
+      ...
+    </ProjectsStatusDashboardContainer>
+  );
+};
+```
+
+### useCurrentBackground
+
+Allows accessing current background color through the nearest `Background` provider.
+
+You can overwrite the default behavior and access to the root background color by passing the config `useRootTheme`.
+
+```jsx
+const nearestBackground = useCurrentBackground({ useRootTheme: true });
+const rootBackground = useCurrentBackground({ useRootTheme: true });
+```
+
+### useHasColoredBackground
+
+Abstraction of `useCurrentBackground` to know if background is making components using _dark_ or _light_ theme variant
+
+## Dark Mode
+
+Dark theme variant is used when nearest `Background` provider has a dark color as `backgroundColor` props.
+
+export const BackgroundWithPadding = styled(Background)`
+  padding: 8px 24px;
+  margin: 32px 0;
+`;
+
+<BackgroundWithPadding
+  backgroundColor={palette.neutralWhiteWithIntensityFading[900]}
+>
+  <Text>I'm in dark mode</Text>
+</BackgroundWithPadding>
+
+<BackgroundWithPadding
+  backgroundColor={palette.neutralWhiteWithIntensityFading[100]}
+>
+  <Text>I'm in light mode</Text>
+</BackgroundWithPadding>
+
+```jsx
+  import { Text, Background } from '@concrete-design/core';
+
+  <Background backgroundColor={palette.neutralWhiteWithIntensityFading[900]}>
+    <Text>I'm in dark mode</Text>
+  </Background>
+
+
+  <Background backgroundColor={palette.neutralWhiteWithIntensityFading[100]}>
+    <Text>I'm in light mode</Text>
+  </Background>
+
+```

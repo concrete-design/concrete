@@ -1,0 +1,6 @@
+{
+  "extends": ["@habx/client/typescript", "plugin:mdx/recommended"],
+  "rules": {
+    "deprecation/deprecation": 0
+  }
+}

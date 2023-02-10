@@ -1,0 +1,323 @@
+---
+title: Import / Export
+---
+
+import { AlertPanel, Icon, Text } from "@concrete-design/core";
+
+## Overview
+
+_Concrete Table_ exports two hooks that use `react-table` column types to export and import data.
+For now, it supports `csv`, `xls` and `xlsx` files using [exceljs](https://github.com/exceljs/exceljs).
+
+## Columns
+
+_Concrete Table_ extends `react-table` column types with a new property `meta`. If you want to use the import/export feature,
+you will need to add the `imex` property in `meta` of the column you want to export and/or import.
+
+<AlertPanel warning icon={<Icon icon="exclam-outline" />}>
+  <Text markdown>
+    Columns without `meta.imex` will be ignored during export or import.
+  </Text>
+</AlertPanel>
+
+### Identifier (required)
+
+Columns definition for an import should always contain _one_ column with the property `identifier` set to true.
+It will allow finding existing value in your original data and update it instead of creating new values.
+
+##### Example
+
+```typescript
+[
+  {
+    Header: "ID",
+    accessor: "id",
+    imex: {
+      identifier: true,
+    },
+  },
+];
+```
+
+<AlertPanel icon={<Icon icon="information" />}>
+  <Text markdown>
+    Sometimes your data has a more complex way to defines uniqness. In this
+    case, you can pass `findPrevValPredicate` to the hook to avoid data
+    duplication
+  </Text>
+</AlertPanel>
+
+### Type (required)
+
+Parsing is done by our hooks so you need to specify what type of data you are expecting. Possible values are:
+
+- `IMEXColumnType.string`
+- `IMEXColumnType['string[]']'`
+- `IMEXColumnType.number`
+- `IMEXColumnType['number[]']`
+
+If given data cannot be converted into _type_ specified in column it will be considered as an error.
+
+##### Example
+
+```typescript
+[
+  {
+    Header: "Name",
+    accessor: "name",
+    imex: {
+      type: IMEXColumnType.string,
+    },
+  },
+  {
+    Header: "Age",
+    accessor: "age",
+    imex: {
+      type: IMEXColumnType.number,
+    },
+  },
+];
+```
+
+### Header (optional)
+
+Used as header in the exported file. If not specified, column Header will be used but is has to be a string.
+
+##### Example
+
+```typescript
+[
+  {
+    Header: () => <CustomHeader />,
+    accessor: "name",
+    imex: {
+      header: "Name",
+    },
+  },
+];
+```
+
+### Path (optional)
+
+Used as param to get & set lodash functions to retrieve or set data.
+If not specified, column accessor will be used but it would need to be a string.
+
+##### Example
+
+```typescript
+[
+  {
+    Header: "Name",
+    accessor: (row) => row.user.name,
+    imex: {
+      path: "user.name",
+    },
+  },
+];
+```
+
+### Parse & Format
+
+Inspired by [final-form](https://final-form.org/), columns imex property accept `parse` and `format` properties that should be functions
+that returns either _parsed_ or _formated_ value.
+`format` formats your raw data to give it to exported values when `parse` transforms data given from import to store it in your database.
+
+##### Example
+
+```typescript
+;[
+  {
+    Header: 'type de pièce',
+    accessor: 'category',
+    imex: {
+      format: (value: string | number) =>
+        roomOptions.find((option) => option.value === value)?.label ?? value,
+      parse: (label: string | number) =>
+        roomOptions.find(
+            (option) =>
+              trim(lowerCase(option.label)) === trim(lowerCase(`${label}`))
+        )?.value ?? label,
+      },
+    },
+  },
+]
+```
+
+### Validation
+
+You can validate data given in you import with the `validate` property. If you return a _string_ or `false`, user won't
+be able to import this data.
+
+<AlertPanel icon={<Icon icon="information" />}>
+  <Text markdown>
+    Rows with error are ignored for import. They are just displayed to user as
+    warnings but won't be imported
+  </Text>
+</AlertPanel>
+
+##### Example
+
+```typescript
+[
+  {
+    Header: "type de pièce",
+    accessor: "category",
+    imex: {
+      validate: (value: string) =>
+        Object.values(RoomCategories).includes(value as RoomCategories),
+    },
+  },
+];
+```
+
+#### Excel data validation
+
+You can use `dataValidation` property to set excel specific validation defined [by exceljs](https://github.com/exceljs/exceljs#data-validations).
+It will be applied every existing rows plus 50 rows. This can be overwritten by passing the `extraRows` property manually to the `useExportTable` hook.
+
+##### Example
+
+```typescript
+[
+  {
+    Header: "type de pièce",
+    accessor: "category",
+    imex: {
+      dataValidation: {
+        type: "list",
+        allowBlank: false,
+        formulae: [`"${roomOptions.map(({ label }) => label).join(",")}"`],
+      },
+      validate: (value: string) =>
+        Object.values(RoomCategories).includes(value as RoomCategories),
+    },
+  },
+];
+```
+
+### Excel Styling properties
+
+#### Width
+
+You can pass a width property to force excel to display your column with a specific width.
+
+#### Hidden
+
+Sometimes you will want to hide a column (like the one you use as identifier), to make your table easier to read.
+
+## Export
+
+`useExportTable` hook takes `columns` as mandatory argument for its call. All other argument can be passed either in
+the hook call or in its function call.
+It returns an array with first property is a function that will trigger the download of the exported file with data passed as params.
+
+#### Example
+
+##### Columns
+
+```typescript
+const data = [
+  { name: "Alexis", age: 26 },
+  { name: "Benjamin", age: 10 },
+];
+```
+
+##### Columns
+
+```typescript
+const columns = [
+  {
+    Header: "Name",
+    accessor: "name",
+    imex: {
+      type: IMEXColumnType.string,
+    },
+  },
+  {
+    Header: "Age",
+    accessor: "age",
+    imex: {
+      type: IMEXColumnType.number,
+    },
+  },
+];
+```
+
+##### Basic Usage
+
+```typescript
+const [downloadTableData] = useExportTable();
+
+//
+
+downloadTableData("export", {
+  data,
+  columns,
+});
+```
+
+## Import
+
+### Overview
+
+We tried to make import validation as clear as possible with a validation prompt that displays the table of modifications.
+
+![Import gif](https://res.cloudinary.com/habx/image/upload/v1616507243/tech/ui-table/imex.gif)
+
+#### Validation
+
+![Import validation](https://res.cloudinary.com/habx/image/upload/v1620664728/tech/ui-table/imex_compare.png)
+
+You can see 3 state of rows: _Insertions_, _modifications_ and _errors_.
+The total of theses rows are displayed next to the submit button.
+The number of impacted entity for a specific key is shown in the footer.
+
+### Rules
+
+- You can remove columns in your sheet file as long as they are not required or tagged as identifier
+- If you pass an empty string, the hooks consider that you did not pass any value at all
+- Any error in a cell of a row will prevent the import of the entire row even if other values are valid
+- If the comparison result shows that the is no difference between current data and imported rows, they are ignored.
+
+### Usage
+
+```typescript jsx
+export const MyTableWithImport = () => {
+  const tableInstance = useTable({
+    data,
+    columns,
+  });
+  const upsertRow = () => new Promise((resolve) => setTimeout(resolve, 1000));
+
+  const importTable = useImportTable({
+    columns,
+    upsertRow: upsertRow,
+    getOriginalData: () => data,
+    confirmLightBoxTitle: "Import",
+  });
+};
+```
+
+#### With Drag & Drop
+
+```typescript jsx
+export const MyTableWithImport = () => {
+  const tableInstance = useTable({
+    data,
+    columns,
+  });
+  const upsertRow = () => new Promise((resolve) => setTimeout(resolve, 1000));
+  const dropzoneProps = {
+    columns: IMEX_COLUMNS,
+    upsertRow: upsertRow,
+    getOriginalData: () => FAKE_DATA,
+    confirmLightBoxTitle: "Import",
+  };
+
+  return (
+    <ImportTableDropzone {...dropzoneProps}>
+      <Table instance={tableInstance} />
+    </ImportTableDropzone>
+  );
+};
+```

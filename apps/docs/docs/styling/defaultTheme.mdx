@@ -1,0 +1,74 @@
+---
+title: Default Theme
+---
+
+import { DocuBackground } from "@site/src/components/DocuBackground";
+import styled from "styled-components";
+
+import {
+  Background,
+  breakpoints,
+  Text,
+  Title,
+  useThemeVariant,
+} from "@concrete-design/core";
+
+export const Color = styled(Background)`
+  height: 150px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+`;
+
+export const COLORS_KEYS = [
+  "primary",
+  "secondary",
+  "warning",
+  "error",
+  "success",
+];
+export const COLORS_VARIATIONS = [
+  "calmer",
+  "calm",
+  "base",
+  "loud",
+  "louder",
+  "contrastText",
+];
+
+export const ColorVariationsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(${COLORS_VARIATIONS.length}, 1fr);
+  margin-bottom: 32px;
+  @media (${breakpoints.below.tablet}) {
+    grid-template-columns: repeat(${COLORS_VARIATIONS.length / 2}, 1fr);
+  }
+`;
+
+export const ColorVariations = ({ colorKey }) => {
+  const theme = useThemeVariant();
+  return (
+    <div>
+      <Title type="section">{colorKey}</Title>
+      <ColorVariationsContainer>
+        {COLORS_VARIATIONS.map((colorVariation) => (
+          <Color
+            key={colorVariation}
+            backgroundColor={() => theme.colors[colorKey][colorVariation]}
+          >
+            <Text>{colorVariation}</Text>
+          </Color>
+        ))}
+      </ColorVariationsContainer>
+    </div>
+  );
+};
+
+## Colors
+
+<DocuBackground>
+  {COLORS_KEYS.map((colorKey) => (
+    <ColorVariations key={colorKey} colorKey={colorKey} />
+  ))}
+</DocuBackground>

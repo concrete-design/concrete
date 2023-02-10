@@ -1,0 +1,65 @@
+---
+title: Custom theme
+---
+
+## Definition
+
+Theme is defined with a set of 2 variations (dark and light) with a default background color.
+The `isDarkProperty` defines the default theme variant.
+
+```js
+export interface DesignSystemTheme {
+  light: ThemeVariant
+  dark: ThemeVariant
+
+  /**
+   * Automatically inferred from the background color to determine if we want to use the light theme or the dark theme
+   */
+  isDark: boolean
+
+  /**
+   * Background color applied on a <Background /> component
+   */
+  backgroundColor: Color
+}
+```
+
+A custom theme can be only a partial definition of the theme and will only overwrite defined properties.
+
+#### Theme patch example
+
+```json
+{
+  "light": {
+    "colors": {
+      "primary": {
+        "base": "#50E3C2",
+        "calm": "#d9f9f2",
+        "loud": "#50E3C2",
+        "calmer": "#f8fefd",
+        "louder": "#329983"
+      },
+      "secondary": {
+        "base": "#003C71",
+        "calm": "#c8d5e0",
+        "loud": "#003C71",
+        "calmer": "#f5f7f9",
+        "louder": "#003C71"
+      }
+    }
+  }
+}
+```
+
+[_see types definition for details_](https://github.com/habx/ui-core/blob/dev/src/theme/theme.interface.ts#L72)
+
+### Apply custom theme
+
+Add you theme through `ThemeProvider`
+
+```jsx
+const Providers = ({ children }) => {
+  const theme = useMyCustomTheme();
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+};
+```

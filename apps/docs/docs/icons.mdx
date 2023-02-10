@@ -1,0 +1,86 @@
+---
+title: Icons
+---
+
+import { usePluginData } from "@docusaurus/useGlobalData";
+import { DocuBackground } from "@site/src/components/DocuBackground";
+import { searchInString } from "@site/src/lib/strings";
+import styled from "styled-components";
+
+import {
+  Icon,
+  SearchBar,
+  Text,
+  breakpoints,
+  Title,
+  theme,
+} from "@concrete-design/core";
+
+export const IconsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 24px;
+  font-size: 32px;
+  @media (${breakpoints.below.tablet}) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+export const IconBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: ${theme.color("secondary")};
+  > :first-child {
+    margin-bottom: 8px;
+  }
+`;
+
+export const Placeholder = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const Icons = () => {
+  const cloudinary = usePluginData("cloudinary");
+  const cloudinaryData = JSON.parse(cloudinary);
+  const [search, setSearch] = React.useState("");
+  const icons =
+    cloudinaryData?.icons?.filter((icon) =>
+      search.split(" ").some((searchEl, index) => {
+        if (!searchEl.length && index > 0) {
+          return false;
+        }
+        return searchInString(icon, searchEl);
+      })
+    ) ?? [];
+  return (
+    <div>
+      <SearchBar
+        placeholder="Search icon"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <br />
+      {!icons.length && (
+        <Placeholder>
+          <Title type="regular">No icon found</Title>
+        </Placeholder>
+      )}
+      <IconsContainer>
+        {icons.map((icon) => (
+          <IconBox key={icon}>
+            <Icon icon={icon} />
+            <Text type="captionSmall">{icon}</Text>
+          </IconBox>
+        ))}
+      </IconsContainer>
+    </div>
+  );
+};
+
+<DocuBackground>
+  <Icons />
+</DocuBackground>

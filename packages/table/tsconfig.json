@@ -1,0 +1,9 @@
+{
+  "extends": "@habx/config-ci-front/typescript/library.json",
+  "compilerOptions": {
+    "declarationDir": "./dist/typings",
+    "outDir": "./dist/esm"
+  },
+  "include": ["./src"],
+  "exclude": ["./src/**/*.spec.ts", "./src/**/*.stories.tsx"],
+}

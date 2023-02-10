@@ -1,0 +1,235 @@
+---
+title: Async prompts
+---
+
+import styled from "styled-components";
+
+import {
+  confirm,
+  notify,
+  alert,
+  Button,
+  Icon,
+  Title,
+  Text,
+  Provider,
+  AlertPanel,
+  Card,
+} from "@concrete-design/core";
+
+## Why async prompts ?
+
+Sometimes we need to get user confirmation after a form submission or any other interaction.
+Borwsers have built-in functions like `confirm` that can get user validation but it won't be style.
+With React it can be a pain to add a validation modal after submition. We came up with functions helpers inspired by
+[sweeetAlert](https://sweetalert2.github.io/) that help us adding confirmation modals or even more complexe form called
+asynchronously.
+
+## Confirm
+
+**Concrete** exports a `confirm` function that return a _promise_ waiting for user response.
+
+### Usage
+
+```jsx
+import { confirm, notify, Button } from "@concrete-design/core";
+
+const MyComponent = () => {
+  const handleSubmit = async () => {
+    const hasConfirmed = confirm("Do you want to confirm ?");
+    notify(`User response ${hasConfirmed ? "yes" : "no"}`);
+  };
+
+  return <Button onClick={handleSubmit}>Click Me!</Button>;
+};
+```
+
+export const BasicConfirmUsage = () => {
+  const handleSubmit = async () => {
+    const hasConfirmed = await confirm({
+      message: "Do you want to confirm ?",
+      confirmLabel: "Yes",
+      cancelLabel: "No",
+    });
+    notify(`User response is ${hasConfirmed ? "yes" : "no"}`);
+  };
+  return <Button onClick={handleSubmit}>Click Me!</Button>;
+};
+
+<BasicConfirmUsage />
+
+## Notify
+
+`notify` allows to render a sweet message at the bottom of the page from anywhere in the code
+as long as the code is behind the `Provider`.
+
+### Basic usage
+
+```jsx
+const MyComponent = () => (
+  <Button onClick={() => notify("I can be called from anwhere !")}>
+    Click Me!
+  </Button>
+);
+```
+
+<Button onClick={() => notify("I can be called from anwhere !")}>
+  Click Me!
+</Button>
+
+### With illustration
+
+```jsx
+const MyComponent = () => (
+  <Button
+    onClick={() =>
+      notify({
+        message: "hi",
+        illustration: <Icon icon="3D-building-outline" />,
+      })
+    }
+  >
+    Click Me!
+  </Button>
+);
+```
+
+<Button
+  onClick={() =>
+    notify({ message: "hi", illustration: <Icon icon="3D-building-outline" /> })
+  }
+>
+  Click Me!
+</Button>
+
+### With JSX
+
+```jsx
+const MyComponent = () => {
+  const message = (
+    <div>
+      <Title type="regular">Title</Title>
+      <Text>Text</Text>
+    </div>
+  );
+  return <Button onClick={() => notify({ message })}>Click Me!</Button>;
+};
+```
+
+<Button
+  onClick={() =>
+    notify({
+      message: (
+        <div>
+          <Title type="regular">Title</Title>
+          <Text>Text</Text>
+        </div>
+      ),
+    })
+  }
+>
+  Click Me!
+</Button>
+
+### Markdown
+
+You can pass directly markdown to `notify` if you need more complex rendering without passing jsx
+
+```jsx
+const MyComponent = () => (
+  <Button onClick={() => notify({ message: "**hi in bold**", markdown: true })}>
+    Click Me!
+  </Button>
+);
+```
+
+<Button onClick={() => notify({ message: "**hi in bold**", markdown: true })}>
+  Click Me!
+</Button>
+
+### Options
+
+You can pass a 2nd argument to notify to configure the notification as you like
+
+- `duration`: `number`
+- `type`: `'info | 'warning' | 'error'`
+
+```jsx
+const MyComponent = () => (
+  <Button
+    onClick={() => notify("ERROR !", { duration: 10_000, type: "error" })}
+  >
+    Click Me!
+  </Button>
+);
+```
+
+#### Types
+
+export const TypeContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 24px;
+`;
+
+<TypeContainer>
+  <Button small onClick={() => notify("info", { type: "info" })}>
+    info
+  </Button>
+  <Button small warning onClick={() => notify("warning", { type: "warning" })}>
+    warning
+  </Button>
+  <Button small error onClick={() => notify("error", { type: "error" })}>
+    error
+  </Button>
+</TypeContainer>
+
+## Alert
+
+`alert` allows to add an `AlertBanner` at the very top of your application, where you placed your `Provider`.
+
+### Example
+
+```typescript jsx
+const MyComponent = () => {
+  return <Button onClick={() => alert("I'm an alert !"}>Click Me!</Button>;
+};
+
+```
+
+<AlertPanel>
+  In this example, the provider is scoped to the next Card
+</AlertPanel>
+
+<br />
+
+<Card spacing="regular" outline>
+  <Provider>
+    <Button small onClick={() => alert("I'm an alert !")}>
+      Show me an alert
+    </Button>
+  </Provider>
+</Card>
+
+## Prompt
+
+Prompt is a full customizable async util that render either a `Modal` or a `LightBox`
+
+`prompt` takes a _function_ as first argument that should return an object with a `Component` field.
+It returns a promise that is resolved by calling the `onResolve` function passed in the object of the first argument.
+
+A `Modal` is used by default but you can pass `fullscreen: true` to use the `LightBox` component.
+Other `Modal` or `LightBox` props can be passed as params.
+
+### Example
+
+```jsx
+import { prompt } from "@concrete-design/core";
+
+const formResult = await prompt(({ onResolve }) => ({
+  Component: () => <form onSubmit={onResolve}>// you form</form>,
+}));
+if (formResult) {
+  // use your form result
+}
+```

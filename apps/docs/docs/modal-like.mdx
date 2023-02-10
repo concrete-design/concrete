@@ -1,0 +1,180 @@
+---
+title: Toggle Components
+---
+
+import styled from "styled-components";
+
+import { Modal, Button, LightBox, Text } from "@concrete-design/core";
+
+## Overview
+
+**Concrete** exports some components that use the hook [useModal](https://github.com/flaviendelangle/use-modal).
+
+- `Modal`
+- `LightBox`
+- `Menu`
+
+## Basic usage
+
+The basic usage is when you control the state of the Toggle Panel component with `open` and `onClose` props.
+
+#### Example with Lightbox
+
+```jsx
+import { LightBoxExample, Button } from "@concrete-design/core";
+
+const LightBoxExample = () => (
+  <LightBoxExample
+    triggerElement={<Button>Open the modal</Button>}
+    title="Hi !"
+  >
+    I'm a modal
+  </LightBoxExample>
+);
+```
+
+export const LightBoxContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LightBoxExample = () => {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div>
+      <LightBox open={open} onClose={() => setOpen(false)}>
+        <LightBoxContent>
+          <Text>I'm a Lightbox</Text>
+          <br />
+          <Button onClick={() => setOpen(false)}>Close me !</Button>
+        </LightBoxContent>
+      </LightBox>
+      <Button onClick={() => setOpen(true)}>Open Lightbox</Button>
+    </div>
+  );
+};
+
+<LightBoxExample />
+
+## Trigger Element
+
+Toggle components allow you to pass directly a trigger element so you don't have to handle the `open` state.
+
+_Do not worry about the `onClick` props and ref, we keep it in your triggerElement_
+
+#### Example with Modal
+
+```jsx
+import { Modal, Button } from "@concrete-design/core";
+
+const ModalExample = () => (
+  <Modal triggerElement={<Button>Open the modal</Button>} title="Hi !">
+    <Text>I'm a modal</Text>
+  </Modal>
+);
+```
+
+export const ModalExample = () => (
+  <Modal triggerElement={<Button>Open the modal</Button>} title="Hi !">
+    <Text>I'm a modal</Text>
+  </Modal>
+);
+
+<ModalExample />
+
+### Trigger element with modal state
+
+It is possible to pass a function to `triggerElement` to access modal state and conditionally render some of the UI accordingly.
+
+```jsx
+const MenuExampleWithComplexTriggerElement = () => (
+  <Modal
+    triggerElement={(modal) => (
+      <Button onClick={modal.onClick}>
+        Open the modal ({modal.open ? "opened" : "closed"})
+      </Button>
+    )}
+  >
+    <Text>Hi !</Text>
+  </Modal>
+);
+```
+
+export const MenuExampleWithComplexTriggerElement = () => (
+  <Modal
+    triggerElement={(modal) => (
+      <Button onClick={modal.onClick}>
+        Open the modal ({modal.open ? "opened" : "closed"})
+      </Button>
+    )}
+  >
+    <Text>Hi !</Text>
+  </Modal>
+);
+
+<MenuExampleWithComplexTriggerElement />
+
+## Access modal state
+
+You can pass a function as child of your Toggle component to access modal state or functions.
+
+### Conditional rendering
+
+It could be useful to conditionally render your components.
+
+State values are `opened`, `opening`, `closing` and `closed`.
+
+```jsx
+import { Modal, Button } from "@concrete-design/core";
+
+const ModalWithStateContentExample = () => (
+  <Modal triggerElement={<Button>Open the modal</Button>} title="Hi !">
+    {(modal) => <Text>I'm {modal.state}</Text>}
+  </Modal>
+);
+```
+
+export const ModalWithStateContentExample = () => (
+  <Modal triggerElement={<Button>Open the modal</Button>} title="Hi !">
+    {(modal) => <Text>I'm {modal.state}</Text>}
+  </Modal>
+);
+
+<ModalWithStateContentExample />
+
+### Closing with render props
+
+```jsx
+import { Modal, Button } from "@concrete-design/core";
+
+const ModalWithClosingInContentExample = () => (
+  <Modal triggerElement={<Button>Open the modal</Button>} title="Hi !">
+    {(modal) => <Button onClick={modal.close}>Close</Button>}
+  </Modal>
+);
+```
+
+### Use value as open state
+
+You can pass value props in Modal and it will be cached from the last time the modal was opening / opened
+Can be useful if you want to keep Modal UI consistent during `closing` phase while resetting your application state.
+
+```jsx
+const MyComponent = () => {
+  const [value, setValue] = React.useState(null);
+  return (
+    <Modal
+      open={!!selectedRow}
+      onClise={() => setValue(null)}
+      value={selectedRow}
+    >
+      {(modal) =>
+        modal.state !== ModalState.closed && <Component value={modal.value} />
+      }
+    </Modal>
+  );
+};
+```

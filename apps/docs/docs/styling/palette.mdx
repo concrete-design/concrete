@@ -1,0 +1,72 @@
+---
+title: Palette
+---
+
+import { DocuBackground } from "@site/src/components/DocuBackground";
+import styled from "styled-components";
+
+import {
+  palette,
+  Title,
+  stringifyColor,
+  Text,
+  Background,
+  breakpoints,
+} from "@concrete-design/core";
+
+**Concrete** comes with a special palette made with shades of pretty colors.
+
+## Usage
+
+```jsx
+import { palette } from "@concrete-design/core";
+
+export const WithPaletteColor = styled.div`
+  background-color: ${palette.yellowGolden[600]};
+`;
+```
+
+## Colors
+
+export const COLORS_SHADES_LENGTH = 8;
+
+export const Color = styled(Background)`
+  height: 150px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+`;
+
+export const ColorsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(${COLORS_SHADES_LENGTH}, 1fr);
+  margin-bottom: 32px;
+  @media (${breakpoints.below.tablet}) {
+    grid-template-columns: repeat(${COLORS_SHADES_LENGTH / 2}, 1fr);
+  }
+`;
+
+export const PaletteElementContainer = styled.div`
+  height: 100px;
+`;
+
+<DocuBackground>
+  {Object.entries(palette).map(([key, color]) => (
+    <div key={key}>
+      <Title type="section">{key}</Title>
+      <ColorsContainer>
+        {new Array(COLORS_SHADES_LENGTH).fill(0).map((_, index) => {
+          const shadeIndex = (index + 1) * 100;
+          const paletteColor = color[shadeIndex];
+          return (
+            <Color backgroundColor={paletteColor} key={paletteColor}>
+              <Text variation="title">{shadeIndex}</Text>
+              <Text type="caption">{stringifyColor(paletteColor)}</Text>
+            </Color>
+          );
+        })}
+      </ColorsContainer>
+    </div>
+  ))}
+</DocuBackground>

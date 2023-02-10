@@ -1,0 +1,89 @@
+---
+title: Table usage
+---
+
+import { DocuBackground } from "@site/src/components/DocuBackground";
+import { ResetTableStyles } from "@site/src/components/ResetTable";
+
+import { useTable, Table } from "@concrete-design/table";
+
+## Overview
+
+**Concrete** has a table UI implementation based on [react-table](https://react-table.tanstack.com/) hooks.
+So be sure to understand how [react-table](https://react-table.tanstack.com/) hooks work before doing anything.
+
+## Installation
+
+**Concrete** table needs other dependencies to work. So first run
+
+```bash
+  npm i @concrete-design/table react-table
+```
+
+## Basic usage
+
+**Concrete Table** exports an abstraction of `useTable` hook and a component to render the ui of the table.
+
+Here is how it works.
+
+```jsx
+import { useTable, Table } from "@concrete-design/table";
+
+export const data = [
+  { name: "Jon", age: 19 },
+  { name: "Eddy", age: 30 },
+  { name: "Michel", age: 40 },
+];
+
+export const columns = [
+  {
+    Header: "Name",
+    accessor: "name",
+  },
+  {
+    Header: "Age",
+    accessor: "age",
+  },
+];
+
+export const TableExample = () => {
+  const tableInstance = useTable({
+    data, // should be memoized
+    columns, // should be memoized
+  });
+  return <Table instance={tableInstance} />;
+};
+```
+
+export const data = [
+  { name: "Jon", age: 19 },
+  { name: "Eddy", age: 30 },
+  { name: "Michel", age: 40 },
+];
+
+export const columns = [
+  {
+    Header: "Name",
+    accessor: "name",
+  },
+  {
+    Header: "Age",
+    accessor: "age",
+  },
+];
+
+export const TableExample = () => {
+  const tableInstance = useTable({
+    data,
+    columns,
+  });
+  return <Table instance={tableInstance} />;
+};
+
+### Example
+
+<DocuBackground>
+  <ResetTableStyles>
+    <TableExample />
+  </ResetTableStyles>
+</DocuBackground>

@@ -1,0 +1,112 @@
+{
+  "name": "@concrete-design/core",
+  "version": "9.0.0",
+  "description": "HABX Design System",
+  "sideEffects": false,
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/typings/index.d.ts",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs",
+    "build-ci": "npm run clean && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "bili",
+    "build:watch": "npm run clean && tsc --watch",
+    "lint": "eslint \"src/**\"",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook:build": "build-storybook -c .storybook -o .storybook-static",
+    "storybook:deploy": "storybook-to-ghpages -s storybook:build --ci -t=GITHUB_TOKEN",
+    "test": "jest --runInBand",
+    "test-ci": "jest --runInBand",
+    "test:coverage": "jest --coverage",
+    "type:coverage": "tscov"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/habx/ui-core.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/habx/ui-core/issues"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run test"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "homepage": "https://github.com/habx/ui-core#readme",
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^5.3.6"
+  },
+  "dependencies": {
+    "@datepicker-react/hooks": "^2.8.4",
+    "@delangle/use-modal": "^1.9.41",
+    "color-parse": "^1.4.2",
+    "date-fns": "^2.29.3",
+    "lodash.deburr": "^4.1.0",
+    "markdown-it": "^13.0.1",
+    "merge": "^2.1.1",
+    "react-easy-swipe": "0.0.22",
+    "react-is": "^18.2.0"
+  },
+  "devDependencies": {
+    "@habx/config-ci-front": "^3.8.1",
+    "@habx/eslint-config-client": "^6.10.0",
+    "@liftr/tscov": "^2.0.0",
+    "@storybook/addon-docs": "^6.5.13",
+    "@storybook/addon-essentials": "^6.5.13",
+    "@storybook/addon-links": "^6.5.13",
+    "@storybook/react": "^6.5.13",
+    "@storybook/storybook-deployer": "^2.8.16",
+    "@storybook/theming": "^6.5.13",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@types/jest": "^29.2.3",
+    "@types/lodash.deburr": "^4.1.7",
+    "@types/markdown-it": "12.2.3",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.9",
+    "@types/react-is": "^17.0.3",
+    "@types/sinon": "^10.0.13",
+    "@types/styled-components": "^5.1.26",
+    "bili": "^5.0.5",
+    "eslint": "^8.27.0",
+    "eslint-plugin-mdx": "^2.0.5",
+    "husky": "^4.3.8",
+    "jest": "^29.3.1",
+    "jest-environment-jsdom": "^29.3.1",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
+    "jest-junit": "^14.0.1",
+    "lint-staged": "^13.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^3.0.2",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "sinon": "^14.0.2",
+    "storybook-addon-designs": "^6.3.1",
+    "storybook-dark-mode": "^1.1.2",
+    "styled-components": "^5.3.6",
+    "styled-normalize": "^8.0.7",
+    "ts-jest": "^29.0.3",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.3"
+  },
+  "storybook-deployer": {
+    "commitMessage": "[SKIP CI] Deploy Storybook to GitHub Pages"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}

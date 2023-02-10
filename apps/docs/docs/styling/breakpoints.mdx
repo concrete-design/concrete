@@ -1,0 +1,45 @@
+---
+title: Breakpoints
+---
+
+## Media queries presets
+
+**Concrete** makes use of [media queries](https://developer.mozilla.org/fr/docs/Web/CSS/Media_Queries/Using_media_queries)
+easy by providing a set of breakpoints media presets for your styles.
+
+Breakpoints are
+
+- `desktop` _(1296em)_
+- `tablet` _(1024em)_
+- `smallTablet` _(768em)_
+- `phone` _(600em)_
+
+Breakpoint object has 2 presets for media queries. `below` and `above`
+If we want a media query that apply on media with screen size bellow tablets,
+you should use `breakpoints.below.tablet` preset.
+
+### Example
+
+```scss
+@media (${breakpoints.below.tablet}) {
+  padding: 32px;
+}
+```
+
+Becomes
+
+```css
+@media (max-width: 64em) {
+  padding: 32px;
+}
+```
+
+## Hooks
+
+### useResponsiveType
+
+Returns the current breakpoint of the screen. Default value can be passed as parameter.
+
+```jsx
+useResponsiveType("phone"); // => desktop
+```
